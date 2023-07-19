@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import MovieImageArr from './MovieImages';
 
 const RankItem = () => {
     const [items, setItems] = useState([]);
@@ -15,12 +15,15 @@ const RankItem = () => {
     },[])
     return(
         <main>
+            <div className='items-not-ranked'>
             {
-                (items != null) ? items.map((item) =>
-                    <h3>{item.title}</h3>) 
-                    : <div>... Loading</div>
+                (items.length > 0) ? items.map((item) =>
+                    
+                    <img id={`id-${item.id}`} key={item.id} src={MovieImageArr.find(o => o.id === item.imageId)?.image}/>
+                    ): <div>... Loading</div>
             }
             
+            </div>        
         </main>
     )
 }

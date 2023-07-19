@@ -8,7 +8,6 @@ const context =  [
   "/weatherforecast",
   "/item"
 ];
-
 module.exports = function(app) {
   const appProxy = createProxyMiddleware(context, {
     target: target,

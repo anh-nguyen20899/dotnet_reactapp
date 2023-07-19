@@ -1,3 +1,4 @@
+using dotnet_reactapp.Dto;
 using dotnet_reactapp.Models;
 using Microsoft.AspNetCore.Mvc;
 namespace dotnet_reactapp.Controllers;
@@ -29,6 +30,7 @@ public class ItemController : ControllerBase
             new ItemModel{Id = 19, Title = "St. Anger", ImageId=19, Ranking=0,ItemType=2 },
             new ItemModel{Id = 20, Title = "The Final Countdown", ImageId=20, Ranking=0,ItemType=2 }
     };
+
     public List<ItemModel> GetAll()
     {
         return itemModels.ToList();
@@ -36,6 +38,19 @@ public class ItemController : ControllerBase
     [HttpGet("{itemType:int}")]
     public List<ItemModel> GetItemByType(int itemType)
     {
+        System.Threading.Thread.Sleep(2000);
         return itemModels.Where(item => item.ItemType == itemType).ToList();
+    }
+    [HttpPost]
+    public IActionResult CreateItem(CreateItem item)
+    {
+        var newItem = new ItemModel
+        {
+            Title = item.Title,
+            ImageId = item.ImageId,
+            Ranking = item.Ranking,
+            ItemType = item.ItemType
+        };
+        return Ok();
     }
 }
