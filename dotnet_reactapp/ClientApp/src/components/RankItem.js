@@ -4,6 +4,7 @@ import RankingGrid from './RankingGrid';
 const RankItem = () => {
     const [items, setItems] = useState([]);
     const dataType = 1;
+    var itemId = 0;
     useEffect(() => {
         fetch(`item/${dataType}`)
             .then((result) => {
@@ -14,7 +15,9 @@ const RankItem = () => {
             })
     },[])
     function drag(event) {
-        event.dataTransfer.setData("text", event.target.id);
+        event.dataTransfer.clearData();
+        itemId = event.currentTarget.id
+        event.dataTransfer.setData("text", event.currentTarget.id);
     }
     function allowDrop(event) {
         event.preventDefault();
@@ -27,6 +30,7 @@ const RankItem = () => {
         }
         if (targetElm.childNodes.length === 0) {
             var data = parseInt(event.dataTransfer.getData("text").substring(5));
+            event.target.appendChild(document.getElementById(itemId));
             const transformedCollection = items.map((item) => (item.id === parseInt(data)) ?
             { ...item, ranking: parseInt(targetElm.id.substring(5)) } : { ...item, ranking: item.ranking });
             setItems(transformedCollection);
