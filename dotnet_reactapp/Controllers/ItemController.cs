@@ -38,7 +38,6 @@ public class ItemController : ControllerBase
     [HttpGet("{itemType:int}")]
     public List<ItemModel> GetItemByType(int itemType)
     {
-        System.Threading.Thread.Sleep(2000);
         return itemModels.Where(item => item.ItemType == itemType).ToList();
     }
     [HttpPost]
