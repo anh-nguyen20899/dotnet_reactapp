@@ -15,8 +15,6 @@ const RankItem = () => {
             })
     },[])
     function drag(event) {
-        // event.dataTransfer.clearData();
-        // event.dataTransfer.setData("text", event.currentTarget.id);
         itemId = event.currentTarget.id.substring(3);
         
     }
@@ -30,9 +28,6 @@ const RankItem = () => {
             return false;
         }
         if (targetElm.childNodes.length === 0) {
-            // var data = parseInt(event.dataTransfer.getData("text").substring(5));
-            // event.target.appendChild(document.getElementById(itemId));
-
             // update ranking
             const transformedCollection = items.map((item) => (item.id === parseInt(itemId)) ?
             { ...item, ranking: parseInt(targetElm.id.substring(5)) } : { ...item, ranking: item.ranking });
