@@ -15,9 +15,10 @@ const RankItem = () => {
             })
     },[])
     function drag(event) {
-        event.dataTransfer.clearData();
-        itemId = event.currentTarget.id
-        event.dataTransfer.setData("text", event.currentTarget.id);
+        // event.dataTransfer.clearData();
+        // event.dataTransfer.setData("text", event.currentTarget.id);
+        itemId = event.currentTarget.id.substring(3);
+        
     }
     function allowDrop(event) {
         event.preventDefault();
@@ -29,9 +30,11 @@ const RankItem = () => {
             return false;
         }
         if (targetElm.childNodes.length === 0) {
-            var data = parseInt(event.dataTransfer.getData("text").substring(5));
-            event.target.appendChild(document.getElementById(itemId));
-            const transformedCollection = items.map((item) => (item.id === parseInt(data)) ?
+            // var data = parseInt(event.dataTransfer.getData("text").substring(5));
+            // event.target.appendChild(document.getElementById(itemId));
+
+            // update ranking
+            const transformedCollection = items.map((item) => (item.id === parseInt(itemId)) ?
             { ...item, ranking: parseInt(targetElm.id.substring(5)) } : { ...item, ranking: item.ranking });
             setItems(transformedCollection);
         }
@@ -43,12 +46,13 @@ const RankItem = () => {
             {
                 
                 (items.length > 0) ? items.map((item) =>
+                (item.ranking === 0) ?
                 <div className='unranked-cell'>
                     <img id={`id-${item.id}`} 
                         key={item.id} 
                         style={{ cursor: "pointer" }} draggable="true" onDragStart={drag}
                         src={MovieImageArr.find(o => o.id === item.imageId)?.image}/>
-                </div>
+                </div> : null
                     
                     ): <div>... Loading</div>
             }
